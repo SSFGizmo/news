@@ -35,8 +35,7 @@ class NewsDatabaseRecordList extends DatabaseRecordList
             $urlParameters['id'] = $this->id;
         }
         // todo can be remove when 10.4 supported dropped
-        $versionInformation = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
-        if ($versionInformation->getMajorVersion() < 11) {
+        if ((new \TYPO3\CMS\Core\Information\Typo3Version())->getMajorVersion() < 11) {
             if ($this->thumbs) {
                 $urlParameters['imagemode'] = $this->thumbs;
             }
@@ -78,7 +77,7 @@ class NewsDatabaseRecordList extends DatabaseRecordList
         }
 
         $demand = GeneralUtility::_GET('tx_news_web_newsadministration');
-        if (isset($demand['demand']) && is_array($demand['demand'])) {
+        if (is_array($demand['demand'] ?? false)) {
             $urlParameters['tx_news_web_newsadministration']['demand'] = $demand['demand'];
         }
 
