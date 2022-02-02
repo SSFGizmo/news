@@ -210,7 +210,7 @@ class NewsFlexFormManipulation implements FormDataProviderInterface
                 default:
             }
 
-            if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['Hooks/BackendUtility.php']['updateFlexforms'])) {
+            if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['Hooks/BackendUtility.php']) && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['news']['Hooks/BackendUtility.php']['updateFlexforms'] ?? null)) {
                 $params = [
                     'selectedView' => $selectedView,
                     'dataStructure' => &$dataStructure,
@@ -279,6 +279,6 @@ class NewsFlexFormManipulation implements FormDataProviderInterface
      */
     protected function enabledInTsConfig(array $result): bool
     {
-        return (bool)$result['pageTsConfig']['tx_news.']['categoryRestrictionForFlexForms'];
+        return (bool)($result['pageTsConfig']['tx_news.']['categoryRestrictionForFlexForms'] ?? false);
     }
 }
